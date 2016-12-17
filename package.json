@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "series of tests that prove a happner 1 client is able to talk to a happner-2 server",
   "scripts": {
-    "test": "node --expose-gc index"
+    "test": "mocha silence.js test"
   },
   "repository": {
     "type": "git",
@@ -42,6 +42,7 @@
     "happner": "latest",
     "happner-2": "latest",
     "request": "^2.79.0",
+    "restler": "^3.4.0",
     "shortid": "^2.2.6"
   }
 }

@@ -4,15 +4,14 @@
 
 var path = require('path');
 var filename = path.basename(__filename);
-var should = require('chai').should();
-var Happner = require('../');
+var Happner = require('happner-2');
+var Happner1 = require('happner');
 var Promise = require('bluebird');
 var request = Promise.promisify(require('request'));
+var expect = require('expect.js');
+var should = require('chai').should();
 
 describe(filename, function () {
-
-  require('benchmarket').start();
-  after(require('benchmarket').store());
 
   var mesh;
 
@@ -103,7 +102,7 @@ describe(filename, function () {
       })
 
       .then(function (result) {
-        result[1].should.equal('WEB PAGE');
+        expect(result.body).to.be('WEB PAGE');
       })
 
       .then(done)
@@ -168,7 +167,7 @@ describe(filename, function () {
       })
 
       .then(function (result) {
-        result[1].should.equal('WEB PAGE');
+        expect(result.body).to.be('WEB PAGE');
       })
 
       // now remove the component
@@ -187,7 +186,8 @@ describe(filename, function () {
       })
 
       .then(function (result) {
-        result[1].should.equal('Cannot GET /anotherComponent/page\n');
+        expect(result.body).to.be('Cannot GET /anotherComponent/page\n');
+        //result[1].should.equal('Cannot GET /anotherComponent/page\n');
       })
 
       .then(done)
@@ -261,7 +261,7 @@ describe(filename, function () {
   });
 
   it('informs mesh client on create component', function (done) {
-    var client = new Happner.MeshClient();
+    var client = new Happner1.MeshClient();
     client.login()
 
       .then(function () {
@@ -298,7 +298,7 @@ describe(filename, function () {
   });
 
   it('informs mesh client on destroy component', function (done) {
-    var client = new Happner.MeshClient();
+    var client = new Happner1.MeshClient();
     return mesh._createElement({
         module: {
           name: 'component4',
@@ -377,7 +377,5 @@ describe(filename, function () {
       .then(done)
       .catch(done);
   });
-
-  require('benchmarket').stop();
 
 });

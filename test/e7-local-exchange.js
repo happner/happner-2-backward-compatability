@@ -4,13 +4,12 @@ describe(path.basename(__filename), function () {
 
   this.timeout(120000);
 
-  require('benchmarket').start();
-  after(require('benchmarket').store());
-
   var libFolder = path.join(__dirname, 'lib');
-  var Happner = require('../');
+  var Happner = require('happner-2');
+
   var Promise = require('bluebird');
   var async = require('async');
+
   require('chai').should();
   var test_id = Date.now() + '_' + require('shortid').generate();
   var dbFileName = './temp/' + test_id + '.nedb';
@@ -26,7 +25,7 @@ describe(path.basename(__filename), function () {
 
   var config = {
     name: "testComponent2Component",
-    datalayer: {
+    happn: {
       secure: true,
       persist: true,
       defaultRoute: "mem",
@@ -273,8 +272,6 @@ describe(path.basename(__filename), function () {
     });
 
   });
-
-  require('benchmarket').stop();
 });
 
 

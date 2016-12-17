@@ -10,15 +10,18 @@
 var path = require('path');
 var filename = path.basename(__filename);
 var should = require('chai').should();
-var Happner = require('../');
+var Happner = require('happner-2');
+var Happner1 = require('happner');
 var shortid = require('shortid');
 var fs = require('fs');
 var Promise = require('bluebird');
 
 var testId = shortid.generate();
 var testId2 = shortid.generate();
+
 var dbFileName = __dirname + path.sep + 'temp/' + testId + '.nedb';
 var dbFileName2 = __dirname + path.sep + 'temp/' + testId2 + '.nedb';
+
 var secureMesh;
 var mesh2;
 
@@ -34,14 +37,11 @@ describe.skipWindows(filename, function () {
 
   this.timeout(20000);
 
-  require('benchmarket').start();
-  after(require('benchmarket').store());
-
   before('start secureMesh', function (done) {
 
     Happner.create({
       name: 'secureMesh',
-      datalayer: {
+      happn: {
         secure: SECURE,
         adminPassword: testId,
         filename: dbFileName
@@ -130,7 +130,7 @@ describe.skipWindows(filename, function () {
   });
 
   before('start mesh2', function (done) {
-    Happner.create({
+    Happner1.create({
       port: 55001,
       // datalayer: {
       //   secure: SECURE,
@@ -206,8 +206,5 @@ describe.skipWindows(filename, function () {
   //   var client = new Happner.MeshClient({
   //   });
   // });
-
-
-  require('benchmarket').stop();
 
 });

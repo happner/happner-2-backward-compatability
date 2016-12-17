@@ -1,9 +1,9 @@
-var Mesh = require('../../lib/mesh');
+var Mesh = require('happner-2');
 
 var config = {
   name: 'remoteMesh',
   secure:true,
-  datalayer: {
+  happn: {
     port: 10001,
     adminPassword: 'happn'
   },

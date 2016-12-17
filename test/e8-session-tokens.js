@@ -71,16 +71,14 @@ describe('e8-session-tokens', function () {
 
   // Uses unit test 2 modules
   var expect = require('expect.js');
-  var Mesh = require('../');
+  var Mesh = require('happner-2');
+  var Mesh1 = require('happner');
   var libFolder = __dirname + sep + 'lib' + sep;
 
   //var REMOTE_MESH = 'e2-remote-mesh';
   var REMOTE_MESH = 'e3-remote-mesh-secure';
 
   var ADMIN_PASSWORD = 'ADMIN_PASSWORD';
-
-  require('benchmarket').start();
-  after(require('benchmarket').store());
 
   this.timeout(120000);
 
@@ -132,7 +130,7 @@ describe('e8-session-tokens', function () {
 
     Mesh.create({
       name:'e3b-test',
-      datalayer:{
+      happn:{
         secure:true,
         adminPassword: ADMIN_PASSWORD,
         port: 10000,
@@ -196,7 +194,7 @@ describe('e8-session-tokens', function () {
 
     this.timeout(8000);
 
-    var testAdminClient = new Mesh.MeshClient({secure: true, port: 10000});
+    var testAdminClient = new Mesh1.MeshClient({secure: true, port: 10000});
 
     var testGroupSaved;
     var testUserSaved;
@@ -297,7 +295,7 @@ describe('e8-session-tokens', function () {
 
     this.timeout(8000);
 
-    var testAdminClient = new Mesh.MeshClient({secure: true, port: 10000});
+    var testAdminClient = new Mesh1.MeshClient({secure: true, port: 10000});
 
     var testGroupSaved;
     var testUserSaved;
@@ -379,6 +377,5 @@ describe('e8-session-tokens', function () {
     }).catch(done);
   });
 
-  require('benchmarket').stop();
 
 });

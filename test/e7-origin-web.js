@@ -9,10 +9,9 @@ describe('e7-origin-web', function (done) {
 
   this.timeout(120000);
 
-  require('benchmarket').start();
-  after(require('benchmarket').store());
+  var Mesh = require('happner-2');
+  var Mesh1 = require('happner');
 
-  var Mesh = require('../');
   var http = require('http');
   var test_id = require('shortid').generate();
   var expect = require('expect.js');
@@ -22,7 +21,7 @@ describe('e7-origin-web', function (done) {
 
   var config = {
     name: "middlewareMesh",
-    datalayer: {
+    happn: {
       secure: true,
       port: 15000,
       adminPassword: test_id,
@@ -85,7 +84,7 @@ describe('e7-origin-web', function (done) {
 
   it('logs in wth the admin user, we have a token - we run a method that takes in the origin', function (done) {
 
-    var adminClient = new Mesh.MeshClient({secure: true, port: 15000});
+    var adminClient = new Mesh1.MeshClient({secure: true, port: 15000});
 
     var credentials = {
       username: '_ADMIN', // pending
@@ -114,7 +113,7 @@ describe('e7-origin-web', function (done) {
 
   it('logs in wth the admin user, we have a token - we run a method that does not take in the origin', function (done) {
 
-    var adminClient = new Mesh.MeshClient({secure: true, port: 15000});
+    var adminClient = new Mesh1.MeshClient({secure: true, port: 15000});
 
     var credentials = {
       username: '_ADMIN', // pending
@@ -143,7 +142,7 @@ describe('e7-origin-web', function (done) {
 
   it('logs in wth the admin user, we use a bad token', function (done) {
 
-    var adminClient = new Mesh.MeshClient({secure: true, port: 15000});
+    var adminClient = new Mesh1.MeshClient({secure: true, port: 15000});
 
     var credentials = {
       username: '_ADMIN', // pending
@@ -159,14 +158,13 @@ describe('e7-origin-web', function (done) {
         done();
 
       });
-
     }).catch(done);
 
   });
 
   it('logs in wth the admin user, we have a token - we run a method that takes in the origin again', function (done) {
 
-    var adminClient = new Mesh.MeshClient({secure: true, port: 15000});
+    var adminClient = new Mesh1.MeshClient({secure: true, port: 15000});
 
     var credentials = {
       username: '_ADMIN', // pending
@@ -190,10 +188,7 @@ describe('e7-origin-web', function (done) {
       });
 
     }).catch(done);
-
   });
 
-
-  require('benchmarket').stop();
 
 });

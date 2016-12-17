@@ -1,5 +1,6 @@
 var path = require('path');
-var Happner = require('../');
+var Happner = require('happner-2');
+var Happner1 = require('happner');
 var Promise = require('bluebird');
 var fs = require('fs');
 var should = require('chai').should();
@@ -8,9 +9,6 @@ describe.skipWindows = (process.platform === 'win32') ? describe.skip : describe
 
 // skip for issue 223
 describe.skipWindows(path.basename(__filename), function () {
-
-  require('benchmarket').start();
-  after(require('benchmarket').store());
 
   var server;
   var test_id = Date.now() + '_' + require('shortid').generate();
@@ -26,7 +24,7 @@ describe.skipWindows(path.basename(__filename), function () {
     }
     Happner.create({
       name: 'Server',
-      datalayer: {
+      happn: {
         persist: true,
         secure: true,
         filename: dbFileName
@@ -87,7 +85,7 @@ describe.skipWindows(path.basename(__filename), function () {
   });
 
   it('rejects login promise on bad credentials', function (done) {
-    var client = new Happner.MeshClient();
+    var client = new Happner1.MeshClient();
     client.login({
       username: 'username',
       password: 'bad password'
@@ -104,7 +102,7 @@ describe.skipWindows(path.basename(__filename), function () {
   });
 
   it('emits login/deny on bad credentials', function (done) {
-    var client = new Happner.MeshClient();
+    var client = new Happner1.MeshClient();
     client.on('login/deny', function (error) {
       try {
         error.toString().should.equal('AccessDenied: Invalid credentials');
@@ -124,7 +122,7 @@ describe.skipWindows(path.basename(__filename), function () {
   });
 
   it('emits login/allow on good credentials', function (done) {
-    var client = new Happner.MeshClient();
+    var client = new Happner1.MeshClient();
     client.on('login/allow', function () {
       done();
     });
@@ -192,5 +190,4 @@ describe.skipWindows(path.basename(__filename), function () {
     });
   });
 
-  require('benchmarket').stop();
 });

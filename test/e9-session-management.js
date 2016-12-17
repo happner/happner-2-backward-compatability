@@ -1,11 +1,8 @@
 describe('e9_session_management', function () {
 
-  require('benchmarket').start();
-
-  after(require('benchmarket').store());
-
   var expect = require('expect.js');
-  var Mesh = require('../');
+  var Mesh = require('happner');
+  var Mesh2 = require('happner-2');
 
   var serviceInstance;
   var clientInstance = new Mesh.MeshClient({secure: true, port: 11111});
@@ -68,15 +65,15 @@ describe('e9_session_management', function () {
 
         var config = {
           secure:true,
-          port: port,
-          activateSessionManagement:activateSessionManagement,
-          logSessionActivity:logSessionActivity,
-          datalayer:{
-            adminPassword:'happn'
+          happn:{
+            adminPassword:'happn',
+            port: port,
+            activateSessionManagement:activateSessionManagement,
+            logSessionActivity:logSessionActivity
           }
         };
 
-        Mesh.create(config, function (err, instance) {
+        Mesh2.create(config, function (err, instance) {
 
           serviceInstance = instance;
 
@@ -378,7 +375,5 @@ describe('e9_session_management', function () {
       });
     }, 11116);
   });
-
-  require('benchmarket').stop();
 
 });
