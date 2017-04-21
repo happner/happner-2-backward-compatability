@@ -47,14 +47,17 @@ describe('b1 - advanced security', function (done) {
           webmethod1: function (req, res) {
             try{
               console.log('running webmethod1:::');
-              res.send('ok1');
+              res.write('ok1');
+              res.end();
               console.log('ended:::');
             }catch(e){
-              res.send(e.toString());
+              console.log('ENDED ERROR:::', e);
+              res.write(e.toString());
+              res.end();
             }
           },
           webmethod2: function (req, res) {
-            res.send('ok2');
+            res.end('ok2');
           }
         }
       }
@@ -580,6 +583,7 @@ describe('b1 - advanced security', function (done) {
       };
 
       webmethod('get', '/component/webmethod1')
+
         .then(function (body) {
 
           if (body !== 'ok1') {
