@@ -85,7 +85,8 @@ describe('c7-permissions-web', function (done) {
   });
 
   after(function (done) {
-    mesh.stop({reconnect: false}, done);
+    if (mesh) mesh.stop({reconnect: false}, done);
+    else done();
   });
 
   var http = require('http');
@@ -412,7 +413,4 @@ describe('c7-permissions-web', function (done) {
     }).catch(done);
 
   });
-
-  require('benchmarket').stop();
-
 });

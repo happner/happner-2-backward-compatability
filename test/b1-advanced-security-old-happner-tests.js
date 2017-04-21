@@ -45,10 +45,16 @@ describe('b1 - advanced security', function (done) {
             callback(null, 'reply2');
           },
           webmethod1: function (req, res) {
-            res.end('ok1');
+            try{
+              console.log('running webmethod1:::');
+              res.send('ok1');
+              console.log('ended:::');
+            }catch(e){
+              res.send(e.toString());
+            }
           },
           webmethod2: function (req, res) {
-            res.end('ok2');
+            res.send('ok2');
           }
         }
       }
@@ -575,7 +581,11 @@ describe('b1 - advanced security', function (done) {
 
       webmethod('get', '/component/webmethod1')
         .then(function (body) {
+
           if (body !== 'ok1') {
+
+            console.log(arguments);
+
             return done(new Error('Failed on webmethod1: ' + body));
           }
           done();
