@@ -125,9 +125,7 @@ describe('a8 - exchange supports promises', function () {
 
     global.TESTING_18 = true; //.............
 
-    mesh = this.mesh = new Mesh2();
-
-    mesh.initialize({
+    Mesh2.create({
       happn: {
         setOptions: {
           timeout: 1000
@@ -144,10 +142,13 @@ describe('a8 - exchange supports promises', function () {
       components: {
         'component': {}
       }
-    }, function (err) {
+    }, function (err, instance) {
 
       delete global.TESTING_18; //.............
+
       if (err) return done(err);
+
+      mesh = instance;
 
       testClient = new Mesh.MeshClient();
 

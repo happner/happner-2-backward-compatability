@@ -68,13 +68,13 @@ describe('b1 - advanced security', function (done) {
 
   before(function (done) {
 
-    mesh = new Mesh2();
-    mesh.initialize(config, function (err) {
+    Mesh2.create(config, function (err, instance) {
       if (err) {
         console.log(err.stack);
         done(err);
       } else {
-        mesh.start(done);
+        mesh = instance;
+        done();
       }
     });
   });

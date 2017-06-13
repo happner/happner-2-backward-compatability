@@ -62,15 +62,15 @@ var async = require('async');
 
 describe('b4 - component start and validation -', function () {
 
+  var _this = this;
+
   this.timeout(120000);
 
   before(function (done) {
 
     global.TESTING_B4 = true; //.............
 
-    mesh = this.mesh = new Mesh2();
-
-    mesh.initialize({
+    Mesh2.create({
       name: 'b4_permissions_translation',
       happn: {
         secure: true,
@@ -98,26 +98,23 @@ describe('b4 - component start and validation -', function () {
         }
       }
 
-    }, function (err) {
+    }, function (err, instance) {
       
       if (err) return done(err);
 
-      mesh.start(function (err) {
+      mesh = instance;
 
-        if (err) {
-          // console.log(err.stack);
-          return done(err);
-        }
+      // Credentials for the login method
+      var credentials = {
+        username: '_ADMIN', // pending
+        password: test_id
+      };
 
-        // Credentials for the login method
-        var credentials = {
-          username: '_ADMIN', // pending
-          password: test_id
-        };
+      console.log('logging in:::');
 
-        adminClient.login(credentials).then(done).catch(done);
-
-      });
+      adminClient.login(credentials)
+        .then(done)
+        .catch(done);
     });
   });
 
@@ -779,7 +776,5 @@ describe('b4 - component start and validation -', function () {
       });
     });
   });
-
-  require('benchmarket').stop();
 
 });

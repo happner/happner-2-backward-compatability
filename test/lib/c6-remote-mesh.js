@@ -14,7 +14,7 @@ var config = {
   }
 };
 
-(new Mesh2()).initialize(config, function (err) {
+Mesh2.create(config, function (err) {
 
   if (err) {
     console.log(err);
@@ -23,5 +23,4 @@ var config = {
   }
 
   console.log('READY');
-
 });

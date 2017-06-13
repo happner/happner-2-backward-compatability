@@ -38,7 +38,6 @@ describe('8 - does some benchmarks on api calls, data events and events', functi
         moduleName: "module1",
         accessLevel: "mesh",
         // scope: "component",//either component(mesh aware) or module - default is module
-        startMethod: "start",
         schema: {
           "exclusive": false,//means we dont dynamically share anything else
           "methods": {
@@ -67,9 +66,10 @@ describe('8 - does some benchmarks on api calls, data events and events', functi
 
   before(function (done) {
     console.time('startup');
-    mesh = new Mesh2();
-    mesh.initialize(config, function (err) {
+    Mesh2.create(config, function (err, instance) {
       console.timeEnd('startup');
+
+      mesh = instance;
 
       testClient = new Mesh.MeshClient();
 
@@ -109,12 +109,7 @@ describe('8 - does some benchmarks on api calls, data events and events', functi
         //we have attached our events, now we start the mesh
         // console.log('attached on ok, ref: ' + ref);
         onEventRef = ref;
-        mesh.start(function (err) {
-          if (err) {
-            // console.log('Failed to start mesh');
-            done(err);
-          }
-        });
+        testClient.exchange.component1.start();
       }
     });
   });

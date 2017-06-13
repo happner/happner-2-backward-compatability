@@ -45,17 +45,14 @@ var config = {
   }
 };
 
-(new Mesh()).initialize(config, function (err) {
+Mesh.create(config, function (err) {
 
   if (err) {
-
-    console.log('spawn failed:::', err);
-
     console.log(err);
     process.exit(err.code || 1);
     return;
   }
 
   console.log('READY');
-
 });
+
