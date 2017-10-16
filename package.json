@@ -39,13 +39,13 @@
     "when": "3.7.3"
   },
   "dependencies": {
-    "async": "latest",
-    "bluebird": "^3.4.6",
-    "fs-extra": "^1.0.0",
+    "async": "2.5.0",
+    "bluebird": "3.4.6",
+    "fs-extra": "1.0.0",
     "happner": "latest",
     "happner-2": "latest",
-    "request": "^2.79.0",
-    "restler": "^3.4.0",
-    "shortid": "^2.2.6"
+    "request": "2.79.0",
+    "restler": "3.4.0",
+    "shortid": "2.2.6"
   }
 }
