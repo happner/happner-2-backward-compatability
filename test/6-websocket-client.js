@@ -173,7 +173,5 @@ describe(path.basename(__filename), function (done) {
 
   });
 
-  require('benchmarket').stop();
-
 });
 

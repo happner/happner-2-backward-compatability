@@ -254,8 +254,5 @@ describe('c3 - client data search', function () {
     });
 
   });
-
-  require('benchmarket').stop();
-
 });
 
