@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "series of tests that prove a happner 1 client is able to talk to a happner-2 server",
   "scripts": {
-    "test": "mocha silence.js test",
+    "test": "rm -rf node_modules/happner/node_modules/bitcore-lib && mocha silence.js test",
     "install-test": "rm -rf node_modules && npm install && rm -rf node_modules/happner/node_modules/bitcore-lib && mocha silence.js test"
   },
   "repository": {
