@@ -1,6 +1,6 @@
 {
   "name": "happner-2-backward-compatability",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "series of tests that prove a happner 1 client is able to talk to a happner-2 server",
   "scripts": {
     "test": "rm -rf node_modules/happner/node_modules/bitcore-lib && mocha silence.js test",
