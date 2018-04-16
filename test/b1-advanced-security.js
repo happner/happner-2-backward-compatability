@@ -1,11 +1,12 @@
 var Promise = require('bluebird');
 var request = Promise.promisify(require('request'));
 
-describe('b1 - advanced security', function (done) {
+describe('b1 - advanced security', function () {
 
   this.timeout(120000);
 
   var expect = require('expect.js');
+
   var sep = require('path').sep;
 
   var Mesh = require('happner');
@@ -646,22 +647,15 @@ describe('b1 - advanced security', function (done) {
             },
             permissions: {
               methods: {
-                'meshname/component/method1': {authorized: true},
                 'meshname/component/method2': {authorized: true}
               },
               events: {
-                'meshname/component/event1': {authorized: true},
                 'meshname/component/event2': {authorized: true}
               },
               web: {
                 'component/webmethod1': {
                   authorized: true,
                   actions: [
-                    'get',
-                    'put',
-                    'post',
-                    'head',
-                    'delete',
                     'options'
                   ]
                 },
@@ -706,6 +700,44 @@ describe('b1 - advanced security', function (done) {
       adminClient.exchange.security.addGroupPermissions(groupName, addPermissions)
 
         .then(function () {
+
+          return adminClient.exchange.security.getGroup(groupName);
+        })
+
+        .then(function (fetchedGroup) {
+
+          expect(fetchedGroup).to.eql({
+            name: 'group',
+            custom_data: {
+              customString: 'custom1',
+              customNumber: 0
+            },
+            permissions: {
+              methods: {
+                'meshname/component/method2': {authorized: true},
+                'meshname/component/method1': {authorized: true}
+              },
+              events: {
+                'meshname/component/event2': {authorized: true},
+                'meshname/component/event1': {authorized: true}
+              },
+              web: {
+                'component/webmethod1': {
+                  authorized: true,
+                  actions: [
+                    "delete","get","head","options","post","put"
+                  ]
+                },
+                'component/webmethod2': {
+                  authorized: true,
+                  actions: [
+                    'get'
+                  ]
+                }
+              }
+            }
+          });
+
           var removePermissions = {
             methods: {
               '/meshname/component/method1': {} // remove whole permission path
@@ -717,8 +749,7 @@ describe('b1 - advanced security', function (done) {
               '/component/webmethod1': {
                 actions: [ // remove ONLY these actions
                   'put',
-                  'head',
-                  'moo' // does not break it
+                  'head'
                 ]
               }
             }
@@ -729,10 +760,12 @@ describe('b1 - advanced security', function (done) {
 
         .then(function (updatedGroup) {
 
-          // console.log('REMOVE RESULT\n%s\n', JSON.stringify(updatedGroup, null, 2));
+          return adminClient.exchange.security.getGroup(groupName);
+        })
 
-          delete updatedGroup._meta;
-          expect(updatedGroup).to.eql({
+        .then(function (fetchedGroup) {
+
+          expect(fetchedGroup).to.eql({
             name: 'group',
             custom_data: {
               customString: 'custom1',
@@ -749,10 +782,10 @@ describe('b1 - advanced security', function (done) {
                 'component/webmethod1': {
                   authorized: true,
                   actions: [
-                    'get',
-                    'post',
-                    'delete',
-                    'options' // depends on previous test (sorry)
+                    "delete",
+                    "get",
+                    "options",
+                    "post"
                   ]
                 },
                 'component/webmethod2': {
@@ -770,7 +803,7 @@ describe('b1 - advanced security', function (done) {
         .then(function () {
           return new Promise(function (resolve, reject) {
             client.exchange.component.method1().catch(function (error) {
-              if (error.name != 'AccessDenied') {
+              if (error.toString() != 'AccessDenied: unauthorized') {
                 return reject(new Error('Not AccessDenied'));
               }
               resolve();
@@ -910,11 +943,13 @@ describe('b1 - advanced security', function (done) {
       permissions: {
         methods: {
           //in a /Mesh name/component name/method name - with possible wildcards
-          '/meshname/component/method2': {authorized: true}
+          '/meshname/component/method2': {authorized: true},
+          '/meshname/component/method1': {authorized: false}
         },
         events: {
           //in a /Mesh name/component name/event key - with possible wildcards
-          '/meshname/component/event2': {authorized: true}
+          '/meshname/component/event2': {authorized: true},
+          '/meshname/component/method1': {authorized: false}
         }
       }
     };
@@ -1055,7 +1090,7 @@ describe('b1 - advanced security', function (done) {
 
   });
 
-  it('can upsert a new group, merging permissions', function (done) {
+  it('can upsert a new group, removing permissions', function (done) {
 
     var testUpsertGroup = {
 
@@ -1083,12 +1118,12 @@ describe('b1 - advanced security', function (done) {
 
       permissions: {
         methods: {
-          //in a /Mesh name/component name/method name - with possible wildcards
-          '/meshname/component/method2': {authorized: true}
+          '/meshname/component/method2': {authorized: true},
+          '/meshname/component/method1': {authorized: false}
         },
         events: {
-          //in a /Mesh name/component name/event key - with possible wildcards
-          '/meshname/component/event2': {authorized: true}
+          '/meshname/component/event2': {authorized: false},
+          '/meshname/component/event1': {authorized: false}
         }
       }
     };

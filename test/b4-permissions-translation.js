@@ -110,8 +110,6 @@ describe('b4 - component start and validation -', function () {
         password: test_id
       };
 
-      console.log('logging in:::');
-
       adminClient.login(credentials)
         .then(done)
         .catch(done);
