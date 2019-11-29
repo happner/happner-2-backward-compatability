@@ -1,4 +1,4 @@
-describe('4 - Mesh to Mesh', function () {
+xdescribe('4 - Mesh to Mesh', function () {
 
   var spawn = require('child_process').spawn
     , sep = require('path').sep
@@ -34,26 +34,28 @@ describe('4 - Mesh to Mesh', function () {
   before(function (done) {
 
     var _this = this;
-
     // spawn remote mesh in another process
     remote = spawn('node', [libFolder + '4-first-mesh']);
 
     remote.stdout.on('data', function (data) {
 
-      // console.log(data.toString());
+      console.log(data.toString());
 
       if (data.toString().match(/READY/)) {
 
-
-        mesh = new Mesh();
-
-        // console.log('starting this one', mesh, config);
-        // mesh.initialize(config, function(err) {
-        mesh.initialize(config, function (e) {
+        try{
+          mesh = new Mesh();
+          console.log('starting this one', mesh, config);
+          // mesh.initialize(config, function(err) {
+          mesh.initialize(config, function (e) {
+            console.log('init error:::', e);
+            done(e);
+          });
+        }catch(e){
+          console.log('huh???');
           done(e);
-        });
+        }
       }
-
     });
   });
 

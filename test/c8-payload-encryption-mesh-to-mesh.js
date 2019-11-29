@@ -35,7 +35,7 @@ var config = {
   components: {}
 };
 
-describe('c8-payload-encryption', function () {
+xdescribe('c8-payload-encryption', function () {
 
   this.timeout(120000);
 

@@ -99,7 +99,7 @@ describe('b4 - component start and validation -', function () {
       }
 
     }, function (err, instance) {
-      
+
       if (err) return done(err);
 
       mesh = instance;
@@ -719,7 +719,7 @@ describe('b4 - component start and validation -', function () {
 
             doRequest('/b4_permissions_translation/SecuredComponent/Web', null, 'GET', function (response) {
 
-              expect(response.statusCode).to.be(403);
+              expect(response.statusCode).to.be(401);
 
               doRequest('/b4_permissions_translation/SecuredComponent/Web', testUserClient.token, 'GET', function (response) {
 

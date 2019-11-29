@@ -1,4 +1,4 @@
-describe('b2 - secure mesh to mesh', function () {
+xdescribe('b2 - secure mesh to mesh', function () {
 
   context('on remote mesh', function () {
 

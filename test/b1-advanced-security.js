@@ -646,6 +646,7 @@ describe('b1 - advanced security', function () {
               customNumber: 0
             },
             permissions: {
+              data:{},
               methods: {
                 'meshname/component/method2': {authorized: true}
               },
@@ -713,6 +714,7 @@ describe('b1 - advanced security', function () {
               customNumber: 0
             },
             permissions: {
+              data:{},
               methods: {
                 'meshname/component/method2': {authorized: true},
                 'meshname/component/method1': {authorized: true}
@@ -772,6 +774,7 @@ describe('b1 - advanced security', function () {
               customNumber: 0
             },
             permissions: {
+              data:{},
               methods: {
                 'meshname/component/method2': {authorized: true}
               },

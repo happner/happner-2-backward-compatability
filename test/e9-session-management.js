@@ -152,25 +152,17 @@ describe('e9_session_management', function () {
 
                 if (e) return callback(e);
                 expect(list.length <= 3).to.be(true);
+                expect(newInstance.data.pubsub.readyState).to.be(3);
 
-                clientInstance.exchange.security.revokeSession(newInstance.data.session, 'APP', function(e){
+                clientInstance.exchange.security.revokeToken(newInstance.data.session.token, 'APP', function(e){
 
                   if (e) return callback(e);
 
                   setTimeout(function(){
-
-                    clientInstance.exchange.security.listRevokedSessions(function(e, items){
-
+                    clientInstance.exchange.security.listRevokedTokens(function(e, items){
                       expect(items.length).to.be(1);
-
-                      newInstance.exchange.security.listActiveSessions(function(err, list){
-
-                        if (!err) return callback(new Error('this was not meant to happn'));
-                        expect(err.toString()).to.be('AccessDenied: unauthorized');
-
-                        disconnectClient(newInstance, callback);
-
-                      });
+                      expect(newInstance.data.pubsub.readyState).to.be(2);
+                      callback();
                     });
                   }, 2000);
                 });

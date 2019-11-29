@@ -103,7 +103,7 @@ var serverConfig = {
   }
 };
 
-describe('b9 - mesh client security login', function () {
+xdescribe('b9 - mesh client security login', function () {
 
   this.timeout(120000);
 

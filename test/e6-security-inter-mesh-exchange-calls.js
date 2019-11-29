@@ -27,6 +27,8 @@ var mesh2;
 
 var SECURE = true;
 
+return;
+
 // DONE - from insecure mesh to secure mesh
 // TODO - from secure mesh to secure mesh
 
