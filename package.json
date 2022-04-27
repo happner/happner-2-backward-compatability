@@ -37,7 +37,7 @@
     "when": "3.7.3"
   },
   "dependencies": {
-    "async": "2.5.0",
+    "async": "2.6.4",
     "bluebird": "3.4.6",
     "fs-extra": "1.0.0",
     "happner": "1.29.2",
